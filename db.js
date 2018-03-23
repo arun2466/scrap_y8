@@ -26,6 +26,14 @@ var q = `
     status_scrap int,
     PRIMARY KEY (id),
     FOREIGN KEY (tag_id) REFERENCES tags(id));
+
+  CREATE TABLE games (
+    id int NOT NULL AUTO_INCREMENT,
+    tag_game_id int,
+    name varchar(255),
+    description text,
+    PRIMARY KEY (id),
+    FOREIGN KEY (tag_game_id) REFERENCES tag_games(id));
 `;
 
 CONNECTION.query(checkDB, function(err, results) {

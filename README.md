@@ -25,3 +25,8 @@ node scrap_tags.js
 ```
 node scrap_tag_games.js
 ```
+
+### Start will scrap all games details ( this will scrap all games and insert in games table )
+```
+node scrap_games.js
+```

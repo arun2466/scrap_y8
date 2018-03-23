@@ -53,10 +53,30 @@ extractGamesFromDom = (body) => {
   return games;
 }
 
+extractGameDetailsFromDom = (body) => {
+  let games = [];
+  jQuery = cheerio.load(body);
 
+  let name = '';
+  let description = '';
+
+  if (jQuery('#details').find('h1').length > 0) {
+    name = jQuery('#details').find('h1').text();
+  }
+  if (jQuery('p[itemprop="description"]').length > 0) {
+    description = jQuery('p[itemprop="description"]').text();
+  }
+
+  let game = {
+    name : name ? name.trim() : '',
+    description : description ? description.trim() : ''
+  }
+  return game;
+}
 
 module.exports = {
   getHtml,
   extractTagsFromDom,
-  extractGamesFromDom
+  extractGamesFromDom,
+  extractGameDetailsFromDom
 }

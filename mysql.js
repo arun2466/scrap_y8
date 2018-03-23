@@ -31,7 +31,6 @@ selectMysql = (table, row, callback) => {
 updateTable = ( table, row, where, callback ) => {
   let sql = `UPDATE ${table} SET ? WHERE ?`;
   sql = mysql.format(sql, [row, where] );
-  console.log( sql )
   DB_CONNECTION.query(sql, function(err, res) {
     if (err) {
       callback(false, err)
