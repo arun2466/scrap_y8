@@ -32,7 +32,31 @@ extractTagsFromDom = (body) => {
   return tags;
 }
 
+extractGamesFromDom = (body) => {
+  let games = [];
+  jQuery = cheerio.load(body);
+  if (jQuery('#items_container').find('div.videobox').length > 0) {
+    jQuery('#items_container').find('div.videobox').each(function() {
+      let game_name = jQuery(this).find('.title').text();
+      let game_rating = jQuery(this).find('p.rating').find('span.number').text();
+      let game_plays = jQuery(this).find('p.plays-count').text();
+      let game_url = 'http://www.y8.com' + jQuery(this).find('div.thumbarea').find('a').attr('href');
+      let row = {
+        name: game_name ? game_name.trim() : '',
+        rating: game_rating ? game_rating.trim() : '',
+        plays: game_plays ? game_plays.trim() : '',
+        url: game_url ? game_url.trim() : ''
+      }
+      games.push(row);
+    })
+  }
+  return games;
+}
+
+
+
 module.exports = {
   getHtml,
-  extractTagsFromDom
+  extractTagsFromDom,
+  extractGamesFromDom
 }

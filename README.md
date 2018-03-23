@@ -18,5 +18,10 @@ node db.js
 
 ### Start tags scraping ( this will scrap tags and insert in tags table )
 ```
-node scraps.js
+node scrap_tags.js
+```
+
+### Start tags games scraping ( this will scrap tags games including pagination and insert in tag_games table )
+```
+node scrap_tag_games.js
 ```

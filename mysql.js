@@ -16,6 +16,33 @@ insertMysql = (table, row, callback) => {
   });
 }
 
+selectMysql = (table, row, callback) => {
+  let sql = `select * from ${table} where ?`;
+  sql = mysql.format(sql, row);
+  DB_CONNECTION.query(sql, function(err, res) {
+    if (err) {
+      callback(false, err)
+    } else {
+      callback(true, res)
+    }
+  });
+}
+
+updateTable = ( table, row, where, callback ) => {
+  let sql = `UPDATE ${table} SET ? WHERE ?`;
+  sql = mysql.format(sql, [row, where] );
+  console.log( sql )
+  DB_CONNECTION.query(sql, function(err, res) {
+    if (err) {
+      callback(false, err)
+    } else {
+      callback(true, res)
+    }
+  });
+}
+
 module.exports = {
-  insertMysql
+  insertMysql,
+  selectMysql,
+  updateTable
 }

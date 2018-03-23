@@ -15,6 +15,17 @@ var q = `
     url varchar(255),
     status_scrap_games int,
     PRIMARY KEY (id) );
+
+  CREATE TABLE tag_games (
+    id int NOT NULL AUTO_INCREMENT,
+    tag_id int,
+    name varchar(255),
+    rating varchar(255),
+    plays varchar(255),
+    url varchar(255),
+    status_scrap int,
+    PRIMARY KEY (id),
+    FOREIGN KEY (tag_id) REFERENCES tags(id));
 `;
 
 CONNECTION.query(checkDB, function(err, results) {
