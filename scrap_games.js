@@ -16,7 +16,10 @@ saveGame = (tag_game_id, data, callback) => {
   let INSERTDATA = {
     tag_game_id: tag_game_id,
     name: data.name,
-    description: data.description
+    description: data.description,
+    url: data.url,
+    image: data.image,
+    swf: data.swf
   }
   console.log(INSERTDATA)
   insertMysql('games', INSERTDATA, (insertStatus, res) => {
@@ -46,6 +49,7 @@ scrapAllGames = ( games, callback ) => {
         if( gameDetails.name == ''){
           callback()
         }else{
+          gameDetails.link = game_url;
           saveGame( tag_game_id, gameDetails, () => {
             updateTable('tag_games', {status_scrap:1}, {id: tag_game_id}, ( status, res) => {
               scrapAllGames( games, callback)

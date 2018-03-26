@@ -59,6 +59,9 @@ extractGameDetailsFromDom = (body) => {
 
   let name = '';
   let description = '';
+  let image = '';
+  let link = '';
+  let swf = '';
 
   if (jQuery('#details').find('h1').length > 0) {
     name = jQuery('#details').find('h1').text();
@@ -67,9 +70,24 @@ extractGameDetailsFromDom = (body) => {
     description = jQuery('p[itemprop="description"]').text();
   }
 
+  if (jQuery('meta[property="og:image"]').length > 0) {
+    image = jQuery('meta[property="og:image"]').attr('content');
+  }
+
+  if (jQuery('meta[property="og:url"]').length > 0) {
+    url = jQuery('meta[property="og:url"]').attr('content');
+  }
+
+  if (jQuery('#gamefileEmbed').length > 0) {
+    swf = jQuery('#gamefileEmbed').attr('src');
+  }
+
   let game = {
     name : name ? name.trim() : '',
-    description : description ? description.trim() : ''
+    description : description ? description.trim() : '',
+    image : image ? image.trim() : '',
+    url : url ? url.trim() : '',
+    swf : swf ? swf.trim() : '',
   }
   return game;
 }

@@ -31,6 +31,9 @@ var q = `
     id int NOT NULL AUTO_INCREMENT,
     tag_game_id int,
     name varchar(255),
+    url varchar(255),
+    image varchar(255),
+    swf varchar(255),
     description text,
     PRIMARY KEY (id),
     FOREIGN KEY (tag_game_id) REFERENCES tag_games(id));
