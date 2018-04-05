@@ -62,6 +62,8 @@ extractGameDetailsFromDom = (body) => {
   let image = '';
   let link = '';
   let swf = '';
+  let gameControl = '';
+  let gif = '';
 
   if (jQuery('#details').find('h1').length > 0) {
     name = jQuery('#details').find('h1').text();
@@ -82,12 +84,40 @@ extractGameDetailsFromDom = (body) => {
     swf = jQuery('#gamefileEmbed').attr('src');
   }
 
+  if (jQuery('div.videobox').length > 0) {
+    gif = jQuery('div.videobox').attr('data-mp4-movie');
+  }
+
+  let gameControlArr = [];
+  if (jQuery('.keys-for-game').find('li').find('div.key-definition').length > 0 ){
+    jQuery('.keys-for-game').find('li').find('div.key-definition').each(function(){
+      var controlName = jQuery(this).text().trim();
+      var controlKeys = [];
+      if( jQuery(this).find('.keyboard-key').length > 0 ){
+        jQuery(this).find('.keyboard-key').each(function(){
+          var k = jQuery(this).attr('class');
+          controlKeys.push(k.trim())
+        })
+      }
+      var abc = {
+        'text': controlName,
+        'keys': controlKeys
+      }
+      gameControlArr.push(abc)
+    })
+    if( gameControlArr.length > 0 ){
+      gameControl = JSON.stringify(gameControlArr);
+    }
+  }
+
   let game = {
     name : name ? name.trim() : '',
     description : description ? description.trim() : '',
     image : image ? image.trim() : '',
     url : url ? url.trim() : '',
     swf : swf ? swf.trim() : '',
+    gameControl: gameControl ? gameControl.trim() : '',
+    gif: gif ? gif.trim() : ''
   }
   return game;
 }

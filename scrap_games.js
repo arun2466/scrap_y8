@@ -19,7 +19,9 @@ saveGame = (tag_game_id, data, callback) => {
     description: data.description,
     url: data.url,
     image: data.image,
-    swf: data.swf
+    swf: data.swf,
+    gameControl: data.gameControl,
+    gif: data.gif
   }
   console.log(INSERTDATA)
   insertMysql('games', INSERTDATA, (insertStatus, res) => {

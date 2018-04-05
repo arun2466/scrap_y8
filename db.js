@@ -35,6 +35,8 @@ var q = `
     image varchar(255),
     swf varchar(255),
     description text,
+    gameControl text,
+    gif text,
     PRIMARY KEY (id),
     FOREIGN KEY (tag_game_id) REFERENCES tag_games(id));
 `;
