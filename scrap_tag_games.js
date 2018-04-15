@@ -18,17 +18,25 @@ saveGames = (tagid, data, callback) => {
   } else {
     row = data[0];
     data.splice(0, 1);
-    let INSERTDATA = {
-      tag_id: tagid,
-      name: row.name,
-      rating: row.rating,
-      plays: row.plays,
-      url: row.url,
-      status_scrap: 0
-    }
-    // console.log(INSERTDATA)
-    insertMysql('tag_games', INSERTDATA, (insertStatus, res) => {
-      saveGames(tagid, data, callback)
+
+    selectMysql('games', {name: row.name, url: row.url }, (status, res) => {
+      if( status == false ){
+        console.log('tag Game is already exist!!.. skipping insertion');
+        saveGames(tagid, data, callback)
+      } else{
+        let INSERTDATA = {
+          tag_id: tagid,
+          name: row.name,
+          rating: row.rating,
+          plays: row.plays,
+          url: row.url,
+          status_scrap: 0
+        }
+        // console.log(INSERTDATA)
+        insertMysql('tag_games', INSERTDATA, (insertStatus, res) => {
+          saveGames(tagid, data, callback)
+        })
+      }
     })
   }
 }

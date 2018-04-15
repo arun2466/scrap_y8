@@ -13,22 +13,28 @@ let GENERIC = require('./generic');
 const url_tags = "http://www.y8.com/tags";
 
 saveGame = (tag_game_id, data, callback) => {
-  let INSERTDATA = {
-    tag_game_id: tag_game_id,
-    name: data.name,
-    description: data.description,
-    url: data.url,
-    image: data.image,
-    swf: data.swf,
-    gameControl: data.gameControl,
-    gif: data.gif
-  }
-  console.log(INSERTDATA)
-  insertMysql('games', INSERTDATA, (insertStatus, res) => {
-    callback();
+  selectMysql('games', {name: data.name, url: data.url }, (status, res) => {
+    if( status == false ){
+      console.log('Game is already scraped!!.. skipping insertion');
+      callback();
+    } else{
+      let INSERTDATA = {
+        tag_game_id: tag_game_id,
+        name: data.name,
+        description: data.description,
+        url: data.url,
+        image: data.image,
+        swf: data.swf,
+        gameControl: data.gameControl,
+        gif: data.gif
+      }
+      console.log(INSERTDATA)
+      insertMysql('games', INSERTDATA, (insertStatus, res) => {
+        callback();
+      })
+    }
   })
 }
-
 
 scrapAllGames = ( games, callback ) => {
   console.log('\b\b***************************************************');
