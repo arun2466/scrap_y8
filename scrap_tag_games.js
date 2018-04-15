@@ -19,7 +19,7 @@ saveGames = (tagid, data, callback) => {
     row = data[0];
     data.splice(0, 1);
 
-    selectMysql('games', {name: row.name, url: row.url }, (status, res) => {
+    selectMysql('tag_games', {name: row.name, url: row.url }, (status, res) => {
       if( status == false ){
         console.log('tag Game is already exist!!.. skipping insertion');
         saveGames(tagid, data, callback)
