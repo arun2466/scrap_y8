@@ -64,6 +64,7 @@ extractGameDetailsFromDom = (body) => {
   let swf = '';
   let gameControl = '';
   let gif = '';
+  let url = '';
 
   if (jQuery('#details').find('h1').length > 0) {
     name = jQuery('#details').find('h1').text();
